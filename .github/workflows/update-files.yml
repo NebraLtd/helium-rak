@@ -1,0 +1,28 @@
+name: Update Files
+on:
+  repository_dispatch:
+    types: [file-update]
+  workflow_dispatch:
+jobs:
+  file-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          ref: master
+      - run: |
+          cd /home/runner/work/helium-rak/helium-rak
+          rm balena.yml
+          rm docker-compose.yml
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml.rak -O balena.yml
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
+      - name: Push updated docker compose and balena.yml files
+        if: success()
+        uses: test-room-7/action-update-file@v1
+        with:
+          branch: master
+          file-path: |
+            balena.yml
+            docker-compose.yml
+          commit-msg: Update balena.yml and docker-compose.yml              
+          github-token: ${{ secrets.MR_BUMP }}
