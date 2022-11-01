@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with: 
-          ref: teatnet
+          ref: testnet
       - run: |
           cd /home/runner/work/helium-rak/helium-rak
           rm balena.yml
