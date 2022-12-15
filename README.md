@@ -65,7 +65,7 @@ In the middle section of balenaEtcher click `Select target` to select your SD ca
 
 Finally, click on the `Flash!` button to begin installing the firmware to your microSD card (you may need to type your login password here).
 
-**Step 6** - Once it has finished you can now remove the SD card from its adaptor and card reader and then insert it back into the RAK or MNTD hotspot.
+**Step 6** - Once it has finished flashing you can now remove the SD card from its adaptor and card reader and then insert it back into the RAK or MNTD hotspot.
 
 **Step 7** - Finally, connect your Ethernet cable to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
 
