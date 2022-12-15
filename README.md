@@ -2,7 +2,7 @@
 
 Balena OpenFleet for RAK v1.5, v2 and MNTD Miners
 
-**Please note: this repo and the [issues section](https://github.com/NebraLtd/helium-rak/issues) here are not monitored actively, so if you have an issue with this software we would ask that you email support@nebra.com or start an issue in our [main helium software repo](https://github.com/NebraLtd/helium-miner-software/issues). Please note that we do not provide support or feature requests for this free software at this time so this should only be used for bug reports.**
+**Please note: this repo and the [issues section](https://github.com/NebraLtd/helium-rak/issues) here are not monitored actively, so if you have an issue with this software we would ask that you email [support@nebra.com](mailto:support@nebra.com) or start an issue in our [main helium software repo](https://github.com/NebraLtd/helium-miner-software/issues). Please note that we do not provide support or feature requests for this free software at this time so this should only be used for bug reports.**
 
 ## How to use this firmware
 
@@ -19,9 +19,9 @@ There are two ways you can deploy this firmware to your RAKwireless / MNTD Heliu
 
 ### Balena Hub Installation (preferred - includes auto-updates)
 
-**Step 1** - First of all you will need to remove the current microSD card that is inserted into your RAK Hotspot miner. You will need to follow [the instructions from RAK wireless])https://support.getmntd.com/hc/en-us/articles/6832177438999-Replacing-the-SD-card) in order to see how to do this. Here is a quick video to show you how to remove the microSD card (skip to 3:21):
+**Step 1** - First of all you will need to remove the current microSD card that is inserted into your RAK Hotspot miner. You will need to follow [the instructions from RAK wireless](https://support.getmntd.com/hc/en-us/articles/6832177438999-Replacing-the-SD-card) in order to see how to do this. Here is a quick video to show you how to remove the microSD card (skip to 3:21):
 
-[![RAK microSD access video](https://img.youtube.com/vi/CzMwnpkjob4/0.jpg)](https://www.youtube.com/watch?v=CzMwnpkjob4)
+[![RAK microSD access video](https://img.youtube.com/vi/CzMwnpkjob4/0.jpg)](https://www.youtube.com/watch?v=CzMwnpkjob4&t=201)
 
 **Step 2** - Insert the microSD card either into an SD adaptor or if your memory card reader takes microSD directly then insert that and connect it to your computer or laptop.
 
