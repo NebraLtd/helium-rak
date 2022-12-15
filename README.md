@@ -25,7 +25,7 @@ There are two ways you can deploy this firmware to your RAKwireless / MNTD Heliu
 - computer or laptop (Windows or Mac)
 - RAK v1.5, v2 or MNTD Hotspot
 
-**Do not follow this guide if you have a different manufacturer of hotspot**
+**Do not follow this guide if you have a different manufacturer of hotspot!**
 
 ### Balena Hub Installation (preferred - includes auto-updates)
 
