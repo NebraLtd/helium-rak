@@ -4,8 +4,15 @@ Balena OpenFleet for RAK v1.5, v2 and MNTD Miners
 
 **Please note: this repo and the [issues section](https://github.com/NebraLtd/helium-rak/issues) here are not monitored actively, so if you have an issue with this software we would ask that you email [support@nebra.com](mailto:support@nebra.com) or start an issue in our [main helium software repo](https://github.com/NebraLtd/helium-miner-software/issues). Please note that we do not provide support or feature requests for this free software at this time so this should only be used for bug reports.**
 
-**Features**
-- 
+**Features:**
+
+- local IP diagnostics dashboard
+- updated regularly (our automated system means this will get updates at the same time as the entire Nebra fleet)
+- automatic updates (if installed via balenaHub) or option to run and manage your own fleet
+- powered by balenaOS which is optimised for edge devices and very secure
+- access to new features as added to the core Nebra software
+- fully open source software stack (the only one in the Helium community!)
+- COMING SOON: access to [remote management dashboard](https://dashboard.nebra.com)
 
 ## How to use this firmware
 
