@@ -69,7 +69,7 @@ Finally, click on the `Flash!` button to begin installing the firmware to your m
 
 **Step 7** - Finally, connect your Ethernet cabe to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
 
-**Note: We recommend that you use Ethernet for the first boot of the hotspot, at which point you can configure WiFi using the hotspot app.**
+**Note: We recommend that you use Ethernet for the first boot of the hotspot, at which point you can configure WiFi using the MNTD hotspot app (for [Apple](https://apps.apple.com/us/app/mntd-helium-hotspot-manager/id1595569593) and [Android](https://play.google.com/store/apps/details?id=com.getmntd.wallet&hl=en_GB&gl=US) based devices).**
 
 This guide is also available [on our support site here](https://support.nebra.com/support/solutions/articles/24000078640-getting-started-with-rak-mntd).
 
