@@ -67,7 +67,7 @@ Finally, click on the `Flash!` button to begin installing the firmware to your m
 
 **Step 6** - Once it has finished you can now remove the SD card from its adaptor and card reader and then insert it back into the RAK or MNTD hotspot.
 
-**Step 7** - Finally, connect your Ethernet cabe to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
+**Step 7** - Finally, connect your Ethernet cable to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
 
 **Note: We recommend that you use Ethernet for the first boot of the hotspot, at which point you can configure WiFi using the MNTD hotspot app (for [Apple](https://apps.apple.com/us/app/mntd-helium-hotspot-manager/id1595569593) and [Android](https://play.google.com/store/apps/details?id=com.getmntd.wallet&hl=en_GB&gl=US) based devices).**
 
