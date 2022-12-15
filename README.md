@@ -6,7 +6,7 @@ Balena OpenFleet for RAK v1.5, v2 and MNTD Miners
 
 - local IP diagnostics dashboard
 - updated regularly (our automated system means this will get updates at the same time as the entire Nebra fleet)
-- automatic updates (if installed via [balenaHub](#balena-hub-installation-preferred---includes-auto-updates) or option to run and manage your own fleet
+- automatic updates (if installed via [balenaHub](#balena-hub-installation-preferred---includes-auto-updates)) or option to run and manage your own fleet
 - powered by balenaOS which is optimised for edge devices and very secure
 - access to new features as added to the core Nebra software
 - fully open source software stack (the only one in the Helium community!)
