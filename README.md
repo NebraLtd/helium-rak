@@ -65,7 +65,7 @@ This guide is also available [on our support site here](https://support.nebra.co
 
 ### Forking Fleet Installation (requires updating manually / setting up own automations)
 
-
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/NebraLtd/helium-rak)
 
 ## Branches
 
