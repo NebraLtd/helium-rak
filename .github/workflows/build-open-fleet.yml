@@ -1,0 +1,75 @@
+name: Build and Preload OpenFleet
+
+on:
+  repository_dispatch:
+    types: [build-open-fleet]
+  workflow_dispatch:
+
+env:
+  balena-cli: v14.5.15
+
+jobs:
+  build-open-fleet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          ref: master
+
+      - name: Get repo name and assign to ENV
+        run: |
+          ${{ github.event.repository.name }}
+
+      - name: Install latest balena-cli (raspi 3)
+        if: github.event.repository.name == 'helium-risinghf'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip zip lxc libarchive-tools aufs-tools
+          sudo modprobe aufs
+          cd /opt/
+          echo "Uses Balena CLI version: ${{ env.balena-cli }}"
+          cat /etc/docker/daemon.json
+          echo "$(grep aufs /proc/filesystems)"
+          echo "$(docker info)" 
+          curl -O -sSL "https://github.com/balena-io/balena-cli/releases/download/${{ env.balena-cli }}/balena-cli-${{ env.balena-cli }}-linux-x64-standalone.zip"
+          unzip balena-cli-*-linux-x64-standalone.zip
+          sudo ln -s /opt/balena-cli/balena /usr/bin/
+          cd ~
+          
+      - name: Install latest balena-cli (rockpi, raspi4)
+        if: github.event.repository.name != 'helium-risinghf'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip zip
+          cd /opt/
+          echo "Uses Balena CLI version: ${{ env.balena-cli }}"
+          curl -O -sSL "https://github.com/balena-io/balena-cli/releases/download/${{ env.balena-cli }}/balena-cli-${{ env.balena-cli }}-linux-x64-standalone.zip"
+          unzip balena-cli-*-linux-x64-standalone.zip
+          sudo ln -s /opt/balena-cli/balena /usr/bin/
+          cd ~
+
+      - name: Balena login
+        run: balena login --token ${{ secrets.BALENA_API_TOKEN }} > /dev/null
+
+      - name: Generate a Balena OS image for the given board, variant, frequency
+        run: |
+          source ./generate-images.sh -b ${{ matrix.board }} -v ${{ matrix.variant }} -f ${{ matrix.frequency }}
+          echo "Image Name: ${IMAGE_NAME}"
+          echo "Compressed Image Path: ${COMPRESSED_IMAGE_PATH}"
+          echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
+          echo "COMPRESSED_IMAGE_PATH=${COMPRESSED_IMAGE_PATH}" >> $GITHUB_ENV
+
+      - name: Set date
+        run: |
+          echo "timestamp=$(date +'%s')" >> $GITHUB_ENV
+          echo "day=$(date +'%F')" >> $GITHUB_ENV
+
+      - name: Upload image file and checksum to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.IMAGE_NAME }}.*
+          tag: ${{ env.day }}-${{ matrix.board }}
+          overwrite: true
+          file_glob: true
