@@ -7,6 +7,9 @@ on:
 
 env:
   balena-cli: v14.5.15
+  raspberrypi3-64: 2022.10.0
+  raspberrypi4-64: 2022.10.0
+  raspberrypicm4-ioboard: 2.88.4+rev0
 
 jobs:
   build-open-fleet:
@@ -50,7 +53,178 @@ jobs:
 
       - name: Generate a Balena OS image for the given board, variant, frequency
         run: |
-          source ./generate-images.sh -b ${{ matrix.board }} -v ${{ matrix.variant }} -f ${{ matrix.frequency }}
+          IMAGE_BASE_PATH="$HOME/images"
+          DATE=$(date +%F)
+          USER=""
+          NODRYRUN=true
+          VERBOSE=true     
+
+          # Make the base path for the generated images.
+          mkdir -p "$IMAGE_BASE_PATH"
+
+          # Print the parameters for generating images.
+
+         if [[ $USER != "" ]]; then
+           echo " - user: ${USER}"
+         fi
+
+         if [[ $NODRYRUN == false ]]; then
+           echo "(Dryrun mode enabled)"
+         fi
+
+         if $VERBOSE ; then
+           echo "(Verbose mode enabled)"
+         fi
+          
+          # Download balena OS
+          
+          if [ ${{ github.event.repository.name }} == 'helium-risinghf' ] ; then
+            balena_os="raspberrypi3-64"
+            balena_os_version="${{ env.raspberrypi3-64 }}"
+          elif [ ${{ github.event.repository.name }} == ('helium-syncrobit' || 'helium-linxdot' || 'helium-pycom') ] ; then
+            balena_os="raspberrypicm4-ioboard"
+            balena_os_version="${{ env.raspberrypicm4-ioboard }}"
+          else
+            balena_os="raspberrypi4-64"
+            balena_os_version="${{ env.raspberrypi4-64 }}"
+          fi
+
+          base_image_path="$IMAGE_BASE_PATH/balena-base-${{ github.event.repository.name }}.img"
+
+          if $VERBOSE ; then
+            echo -e "Downloading image ${balena_os} for version ${balena_os_version} and writing to ${base_image_path}"
+          fi
+
+          if $NODRYRUN ; then
+            # Download the base image
+            balena os download "$balena_os" \
+              -o "$base_image_path" \
+              --version "$balena_os_version"
+          fi
+    
+          # Generate image path for the given board, variant, frequency and user
+
+          fleet_name="${{ github.event.repository.name }}"
+          image_name="${fleet_name}-${DATE}"
+          image_path="${IMAGE_BASE_PATH}/${image_name}.img"
+
+          # Minimum output
+          echo "Generating image for ${fleet_name} fleet"
+
+          if $VERBOSE ; then
+            echo "Image path is ${image_path}"
+          fi
+
+          # Configure balena OS image
+
+          if $VERBOSE ; then
+            echo "Configuring image"
+          fi
+
+          # Copy base balena image to target image
+          if $NODRYRUN ; then
+            cp "$base_image_path" "$image_path"
+          fi
+
+          if $NODRYRUN ; then
+            balena os configure "$image_path" \
+              --fleet "nebraltd/$fleet_name" \
+              --config-network ethernet \
+              --version "$balena_os_version"
+          fi
+
+          if $VERBOSE ; then
+            echo "Pre-loading apps"
+          fi
+
+          # Preload balena OS image
+
+          if $NODRYRUN ; then
+            balena preload "$image_path" \
+              --pin-device-to-release \
+              --fleet "nebraltd/$fleet_name" \
+              -c "current"
+          fi
+
+          # Copy configuration files into boot and root partition of the balena image
+
+          if $VERBOSE ; then
+            echo "Copying configuration files..."
+          fi
+
+          if $NODRYRUN ; then
+            mountpoints=/tmp/balena-image-mountpoints
+            balena_image_boot_mnt=${mountpoints}/resin-boot
+            balena_image_root_mnt=${mountpoints}/resin-root
+            balena_image_flasher_root_mnt=${mountpoints}/flash-root
+
+            # Setup mountpoints
+            sudo rm -rf $mountpoints > /dev/null 2>&1 || true
+            sudo mkdir -p \
+              $balena_image_boot_mnt \
+              $balena_image_root_mnt \
+              $balena_image_flasher_root_mnt
+
+            # If balena image for the board is flasher image
+            if [ -d "./boards/${board}/flasher-image" ]; then
+              balena_image_flasher_loop_dev="$(sudo losetup -fP --show "$image_path")"
+              sudo mount "${balena_image_flasher_loop_dev}p5" "$balena_image_flasher_root_mnt"
+
+              balena_image="$(find "$balena_image_flasher_root_mnt/opt" -type f -name "*.balenaos-img")"
+              balena_image_loop_dev="$(sudo losetup -fP --show "$balena_image")"
+
+              sudo mount "${balena_image_loop_dev}p5" "$balena_image_root_mnt"
+              jq -n --arg FREQ "$frequency" -f "./boards/${board}/flasher-image/resin-root/etc/nebra.json" | sudo tee "$balena_image_root_mnt/etc/nebra.json" > /dev/null
+
+              sleep 5  # Waits 5 seconds.
+
+              # Cleanup
+              sudo umount "$balena_image_root_mnt"
+              sudo losetup -d "$balena_image_loop_dev"
+
+              sleep 5  # Waits 5 seconds.
+
+              sudo umount "$balena_image_flasher_root_mnt"
+              sudo losetup -d "$balena_image_flasher_loop_dev"
+            else
+              balena_image_loop_dev="$(sudo losetup -fP --show "$image_path")"
+
+              sudo mount "${balena_image_loop_dev}p1" "$balena_image_boot_mnt"
+              sudo cp "./boards/${board}/resin-boot/config.txt" "$balena_image_boot_mnt/config.txt"
+
+              sudo mount "${balena_image_loop_dev}p2" "$balena_image_root_mnt"
+              jq -n --arg FREQ "$frequency" -f "./boards/${board}/resin-root/etc/nebra.json" | sudo tee "$balena_image_root_mnt/etc/nebra.json" > /dev/null
+
+              sleep 5  # Waits 5 seconds.
+            
+              # Cleanup
+              sudo umount "$balena_image_boot_mnt"
+              sudo umount "$balena_image_root_mnt"
+              sudo losetup -d "$balena_image_loop_dev"
+            fi
+          fi
+
+          # Compress Balena image file and generate SHA512 checksum file
+          # Make the compressed file name from the image file name
+
+          compressed_image_path=${image_path/img/zip}
+
+          if $VERBOSE ; then
+            echo "Compressing image"
+          fi
+
+          if $NODRYRUN ; then
+            zip -9 -j "$compressed_image_path" "$image_path"
+          fi
+
+          if $VERBOSE ; then
+            echo "Generating checkum"
+          fi
+
+          if $NODRYRUN ; then
+            sha512sum "$compressed_image_path" > "$compressed_image_path.sha512"
+          fi
+
           echo "Image Name: ${IMAGE_NAME}"
           echo "Compressed Image Path: ${COMPRESSED_IMAGE_PATH}"
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
@@ -60,6 +234,11 @@ jobs:
         run: |
           echo "timestamp=$(date +'%s')" >> $GITHUB_ENV
           echo "day=$(date +'%F')" >> $GITHUB_ENV
+
+      - name: Copy OS image file and checksum to final location
+        run: |
+          cp "${{ env.COMPRESSED_IMAGE_PATH }}" "${{ env.IMAGE_NAME }}.zip"
+          cp "${{ env.COMPRESSED_IMAGE_PATH }}.sha512" "${{ env.IMAGE_NAME }}.zip.sha512"          
 
       - name: Upload image file and checksum to release
         uses: svenstaro/upload-release-action@v2
