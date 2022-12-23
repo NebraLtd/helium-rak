@@ -53,6 +53,15 @@ jobs:
 
       - name: Generate a Balena OS image for the given board, variant, frequency
         run: |
+          LATEST_GA=${{ github.event.client_payload.tag }}
+          if [ $LATEST_GA != "" ] ; then
+            echo "New releae pushed to main repo: $LATEST_GA"
+            echo "LATEST_GA=$LATEST_GA" >> $GITHUB_ENV
+          else
+            echo "No release version provided! Applying tag TEST"
+            echo "LATEST_GA=TEST" >> $GITHUB_ENV
+          fi
+
           IMAGE_BASE_PATH="$HOME/images"
           DATE=$(date +%F)
           USER=""
@@ -222,6 +231,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.IMAGE_NAME }}.*
-          tag: ${{ env.IMAGE_NAME }}-OpenFleet
+          tag: ${{ env.LATEST_GA }}-${{ env.IMAGE_NAME }}-OpenFleet
           overwrite: true
           file_glob: true
