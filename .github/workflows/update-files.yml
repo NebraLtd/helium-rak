@@ -17,7 +17,7 @@ jobs:
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          board="$(echo ${{ github.event.repository.name }} | cut -d "-" -f2-)"
+          board="$(echo ${{ github.event.repository.name }} | cut -d '-' -f2-)"
           echo "${{ board }}"
           
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/balena.yml."${{ board }}" -O balena.yml
@@ -51,7 +51,7 @@ jobs:
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          board="$(echo ${{ github.event.repository.name }} | cut -d "-" -f2-)"
+          board="$(echo ${{ github.event.repository.name }} | cut -d '-' -f2-)"
           echo "${{ board }}"
           
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml."${{ board }}" -O balena.yml
