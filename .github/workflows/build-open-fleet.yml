@@ -64,17 +64,17 @@ jobs:
 
           # Print the parameters for generating images.
 
-         if [[ $USER != "" ]]; then
-           echo " - user: ${USER}"
-         fi
+          if [[ $USER != "" ]]; then
+            echo " - user: ${USER}"
+          fi
 
-         if [[ $NODRYRUN == false ]]; then
-           echo "(Dryrun mode enabled)"
-         fi
+          if [[ $NODRYRUN == false ]]; then
+            echo "(Dryrun mode enabled)"
+          fi
 
-         if $VERBOSE ; then
-           echo "(Verbose mode enabled)"
-         fi
+          if $VERBOSE ; then
+            echo "(Verbose mode enabled)"
+          fi
           
           # Download balena OS
           
