@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Export short SHA of current commit
+        shell: bash
+        run: |
+          FIRMWARE_SHORT_HASH=$( echo ${GITHUB_SHA:0:7} )
+          echo "FIRMWARE_SHORT_HASH=$FIRMWARE_SHORT_HASH" >> $GITHUB_ENV
+          echo "$FIRMWARE_SHORT_HASH"
+          
+          # Get the latest GA release
+          LATEST_GA=$(source <(grep FIRMWARE_VERSION settings.ini))
+          GITHUB_BRANCH=$( echo "${{ github.ref }}" | sed 's/refs\/heads\///g' )
+          
+          echo "LATEST_GA=$LATEST_GA" >> $GITHUB_ENV
+          echo "$LATEST_GA"
+          echo "$GITHUB_BRANCH"
