@@ -17,8 +17,10 @@ jobs:
           echo "FIRMWARE_SHORT_HASH=$FIRMWARE_SHORT_HASH" >> $GITHUB_ENV
           echo "$FIRMWARE_SHORT_HASH"
           
+          source <(grep FIRMWARE_VERSION settings.ini)
+          
           # Get the latest GA release
-          LATEST_GA=$(source <(grep FIRMWARE_VERSION settings.ini))
+          LATEST_GA=$FIRMWARE_VERSION
           GITHUB_BRANCH=$( echo "${{ github.ref }}" | sed 's/refs\/heads\///g' )
           
           echo "LATEST_GA=$LATEST_GA" >> $GITHUB_ENV
