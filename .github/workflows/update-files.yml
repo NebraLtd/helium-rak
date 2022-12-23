@@ -24,12 +24,15 @@ jobs:
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
 
-          if [ $miner == 'rak' ] || [ $miner == 'sensecap' ] || [ $miner == 'controllino' ] ; then  
+          if [ $miner == 'pisces' ] ; then  
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-pisces.yml -O docker-compose.yml
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.pisces -O config.txt
+          elif [ $miner == 'nebra1' ] || [ $miner == 'nebra2' ] ; then  
             wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
-            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.rak -O config.txt
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.nebra-raspi -O config.txt
           else
             wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
-            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.nebra-raspi -O config.txt 
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.rak -O config.txt 
           fi
       - name: Push updated docker compose and balena.yml files
         if: success()
@@ -64,12 +67,15 @@ jobs:
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
 
-          if [ $miner == 'rak' ] || [ $miner == 'sensecap' ] || [ $miner == 'controllino' ] ; then  
+          if [ $miner == 'pisces' ] ; then  
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-pisces.yml -O docker-compose.yml
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.pisces -O config.txt
+          elif [ $miner == 'nebra1' ] || [ $miner == 'nebra2' ] ; then  
             wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
-            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.rak -O config.txt
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.nebra-raspi -O config.txt
           else
             wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
-            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.nebra-raspi -O config.txt 
+            wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.rak -O config.txt 
           fi
       - name: Push updated docker compose and balena.yml files
         if: success()
