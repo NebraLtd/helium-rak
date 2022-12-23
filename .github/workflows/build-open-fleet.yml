@@ -17,10 +17,6 @@ jobs:
         with: 
           ref: master
 
-      - name: Get repo name and assign to ENV
-        run: |
-          ${{ github.event.repository.name }}
-
       - name: Install latest balena-cli (raspi 3)
         if: github.event.repository.name == 'helium-risinghf'
         run: |
