@@ -11,13 +11,16 @@ jobs:
         with: 
           ref: master
       - run: |
-          cd /home/runner/work/helium-rak/helium-rak
+          cd /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}
           rm -f balena.yml
           rm -f docker-compose.yml
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/balena.yml.rak -O balena.yml
+          board="$(echo ${{ github.event.repository.name }} | cut -d "-" -f2-)"
+          echo ${{ board }}
+          
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/balena.yml.${{ board }} -O balena.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
@@ -42,13 +45,16 @@ jobs:
         with: 
           ref: testnet
       - run: |
-          cd /home/runner/work/helium-rak/helium-rak
+          cd /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}
           rm -f balena.yml
           rm -f docker-compose.yml
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml.rak -O balena.yml
+          board="$(echo ${{ github.event.repository.name }} | cut -d "-" -f2-)"
+          echo ${{ board }}
+          
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml.${{ board }} -O balena.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
