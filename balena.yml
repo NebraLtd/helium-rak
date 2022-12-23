@@ -35,6 +35,7 @@ data:
     - RESIN_HOST_CONFIG_disable_overscan: 1
     - RESIN_HOST_CONFIG_disable_splash: 1
     - RESIN_HOST_CONFIG_core_freq: 400
+    - RESIN_OVERRIDE_LOCK: 1
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
     - raspberrypi4-64
