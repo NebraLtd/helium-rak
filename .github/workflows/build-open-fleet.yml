@@ -153,54 +153,27 @@ jobs:
           fi
 
           if $NODRYRUN ; then
-            mountpoints=/tmp/balena-image-mountpoints
-            balena_image_boot_mnt=${mountpoints}/resin-boot
-            balena_image_root_mnt=${mountpoints}/resin-root
-            balena_image_flasher_root_mnt=${mountpoints}/flash-root
+            if [ -f "./config.txt" ] ; then
+              echo "Config.txt file found..."
+              mountpoints=/tmp/balena-image-mountpoints
+              balena_image_boot_mnt=${mountpoints}/resin-boot
 
-            # Setup mountpoints
-            sudo rm -rf $mountpoints > /dev/null 2>&1 || true
-            sudo mkdir -p \
-              $balena_image_boot_mnt \
-              $balena_image_root_mnt \
-              $balena_image_flasher_root_mnt
+              # Setup mountpoints
+              sudo rm -rf $mountpoints > /dev/null 2>&1 || true
+              sudo mkdir -p $balena_image_boot_mnt
 
-            # If balena image for the board is flasher image
-            if [ -d "./boards/${board}/flasher-image" ]; then
-              balena_image_flasher_loop_dev="$(sudo losetup -fP --show "$image_path")"
-              sudo mount "${balena_image_flasher_loop_dev}p5" "$balena_image_flasher_root_mnt"
-
-              balena_image="$(find "$balena_image_flasher_root_mnt/opt" -type f -name "*.balenaos-img")"
-              balena_image_loop_dev="$(sudo losetup -fP --show "$balena_image")"
-
-              sudo mount "${balena_image_loop_dev}p5" "$balena_image_root_mnt"
-              jq -n --arg FREQ "$frequency" -f "./boards/${board}/flasher-image/resin-root/etc/nebra.json" | sudo tee "$balena_image_root_mnt/etc/nebra.json" > /dev/null
-
-              sleep 5  # Waits 5 seconds.
-
-              # Cleanup
-              sudo umount "$balena_image_root_mnt"
-              sudo losetup -d "$balena_image_loop_dev"
-
-              sleep 5  # Waits 5 seconds.
-
-              sudo umount "$balena_image_flasher_root_mnt"
-              sudo losetup -d "$balena_image_flasher_loop_dev"
-            else
               balena_image_loop_dev="$(sudo losetup -fP --show "$image_path")"
 
               sudo mount "${balena_image_loop_dev}p1" "$balena_image_boot_mnt"
-              sudo cp "./boards/${board}/resin-boot/config.txt" "$balena_image_boot_mnt/config.txt"
-
-              sudo mount "${balena_image_loop_dev}p2" "$balena_image_root_mnt"
-              jq -n --arg FREQ "$frequency" -f "./boards/${board}/resin-root/etc/nebra.json" | sudo tee "$balena_image_root_mnt/etc/nebra.json" > /dev/null
+              sudo cp "./config.txt" "$balena_image_boot_mnt/config.txt"
 
               sleep 5  # Waits 5 seconds.
             
               # Cleanup
               sudo umount "$balena_image_boot_mnt"
-              sudo umount "$balena_image_root_mnt"
               sudo losetup -d "$balena_image_loop_dev"
+            else
+              echo "Config.txt file not found..."
             fi
           fi
 
@@ -249,6 +222,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.IMAGE_NAME }}.*
-          tag: ${{ env.day }}-${{ matrix.board }}
+          tag: ${{ env.IMAGE_NAME }}
           overwrite: true
           file_glob: true
