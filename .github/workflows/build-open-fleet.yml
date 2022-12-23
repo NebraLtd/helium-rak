@@ -81,7 +81,7 @@ jobs:
           if [ ${{ github.event.repository.name }} == 'helium-risinghf' ] ; then
             balena_os="raspberrypi3-64"
             balena_os_version="${{ env.raspberrypi3-64 }}"
-          elif [ ${{ github.event.repository.name }} == ('helium-syncrobit' || 'helium-linxdot' || 'helium-pycom') ] ; then
+          elif [ ${{ github.event.repository.name }} == 'helium-syncrobit' ] || [ ${{ github.event.repository.name }} == 'helium-linxdot' ] || [ ${{ github.event.repository.name }} == 'helium-pycom' ] ; then
             balena_os="raspberrypicm4-ioboard"
             balena_os_version="${{ env.raspberrypicm4-ioboard }}"
           else
