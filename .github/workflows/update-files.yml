@@ -17,10 +17,10 @@ jobs:
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          board="$(echo ${{ github.event.repository.name }} | cut -d '-' -f2-)"
-          echo "${{ board }}"
+          miner="rak"
+          echo "${{ miner }}"
           
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/balena.yml."${{ board }}" -O balena.yml
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/balena.yml."${{ miner }}" -O balena.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
@@ -51,10 +51,10 @@ jobs:
           rm -f .github/workflows/*.yml
           rm -f config.txt
           
-          board="$(echo ${{ github.event.repository.name }} | cut -d '-' -f2-)"
-          echo "${{ board }}"
+          board="rak"
+          echo "${{ miner }}"
           
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml."${{ board }}" -O balena.yml
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/balena.yml."${{ miner }}" -O balena.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
