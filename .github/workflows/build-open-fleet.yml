@@ -225,6 +225,10 @@ jobs:
             sha512sum "$compressed_image_path" > "$compressed_image_path.sha512"
           fi
 
+          # Export image name and compressed image path to the environment
+          export IMAGE_NAME="$image_name"
+          export COMPRESSED_IMAGE_PATH="$compressed_image_path"
+
           echo "Image Name: ${IMAGE_NAME}"
           echo "Compressed Image Path: ${COMPRESSED_IMAGE_PATH}"
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
