@@ -21,7 +21,7 @@ jobs:
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/config.txt -O /config.txt
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/production/balena/config/config.txt.rak -O config.txt
       - name: Push updated docker compose and balena.yml files
         if: success()
         uses: test-room-7/action-update-file@v1
@@ -52,7 +52,7 @@ jobs:
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/device-compose-files/docker-compose-rpi.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/update-files.yml -O .github/workflows/update-files.yml
           wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/workflows/build-open-fleet.yml -O .github/workflows/build-open-fleet.yml
-          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/config.txt -O /config.txt
+          wget https://raw.githubusercontent.com/NebraLtd/helium-miner-software/master/balena/config/config.txt.rak -O config.txt
       - name: Push updated docker compose and balena.yml files
         if: success()
         uses: test-room-7/action-update-file@v1
