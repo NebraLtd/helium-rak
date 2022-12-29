@@ -7,4 +7,4 @@ dtparam=audio=on
 avoid_warnings=1
 disable_overscan=1
 disable_splash=1
-gpu_mem=
+gpu_mem=16
