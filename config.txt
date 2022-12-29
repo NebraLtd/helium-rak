@@ -2,7 +2,7 @@ core_freq=400
 dtoverlay=spi0-1cs
 dtoverlay=vc4-fkms-v3d
 dtparam=i2c_arm=on
-dtparam=spi=on
+
 dtparam=audio=on
 avoid_warnings=1
 disable_overscan=1
