@@ -1,3 +1,5 @@
+![Helium RAK Firmware Repo Header](https://cdn.shopify.com/s/files/1/0071/2281/3001/files/Nebra-Firmware-Github-Header-RAK_2x_9c26c97b-c411-4574-bdbe-acfd43bbc085.png?v=1672853335)
+
 # Helium RAK - Open Source Firmware for RAKwireless / MNTD Helium Miners
 
 Balena OpenFleet for RAK v1.5, v2 and MNTD Miners
