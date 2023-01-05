@@ -51,15 +51,17 @@ Once downloaded go ahead and open up the balenaEtcher program on your computer o
 
 **Step 4** - Before we move to the next step you will need to download the latest OpenFleet software for your hotspot from balenaHub, which you can find here - https://nebra.io/rak
 
-Click on the link and you will be redirected to the balenaHub page for your hotspot. Click on `Get Started` and select your preferred network connection (Ethernet required on first boot). If you have balenaEtcher already installed you can select Flash, otherwise you can select Download from the drop-down box by clicking the arrow.
+Click on the link and you will be redirected to the balenaHub page for your hotspot. Click on `Get Started`.
 
 **Important: do not click on `Fork this fleet`**
 
 ![balenaHub page for Helium RAK](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/24118876816/original/zCffeV40Wq9Xr2erSSSr_u8B3r--purIOQ.png?1656517776)
 
+**Step 5** - Select your preferred network connection (Ethernet required on first boot). If you have balenaEtcher already installed (from step 3 above) you can select Flash, otherwise you can select Download from the drop-down box by clicking the arrow.
+
 ![Add new device popup screen on balenaHub](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/24118876877/original/LjeNNTCDF7Vs5ngRDS1WZd_qj2Mv0zARMQ.png?1656517851)
 
-**Step 5** - Click on the `Flash from file` button in balenaEtcher and navigate to where you saved your downloaded firmware file. Select it to be installed.
+**Step 6** - Click on the `Flash from file` button in balenaEtcher and navigate to where you saved your downloaded firmware file. Select it to be installed.
 
 In the middle section of balenaEtcher click `Select target` to select your SD card to install the OS (it may be selected automatically).
 
@@ -67,9 +69,9 @@ In the middle section of balenaEtcher click `Select target` to select your SD ca
 
 Finally, click on the `Flash!` button to begin installing the firmware to your microSD card (you may need to type your login password here).
 
-**Step 6** - Once it has finished flashing you can now remove the SD card from its adaptor and card reader and then insert it back into the RAK or MNTD hotspot.
+**Step 7** - Once it has finished flashing you can now remove the SD card from its adaptor and card reader and then insert it back into the RAK or MNTD hotspot.
 
-**Step 7** - Finally, connect your Ethernet cable to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
+**Step 8** - Finally, connect your Ethernet cable to the hotspot and then the power cable. The hotspot should now boot up with your new firmware installed. It may take up to 30 minutes to do all the updates.
 
 **Note: We recommend that you use Ethernet for the first boot of the hotspot, at which point you can configure WiFi using the MNTD hotspot app (for [Apple](https://apps.apple.com/us/app/mntd-helium-hotspot-manager/id1595569593) and [Android](https://play.google.com/store/apps/details?id=com.getmntd.wallet&hl=en_GB&gl=US) based devices).**
 
@@ -77,7 +79,44 @@ This guide is also available [on our support site here](https://support.nebra.co
 
 ### Forking Fleet Installation (requires updating manually / setting up own automations)
 
+If you are more technical and would like to have more control over your devices (including, among other things, command line access) you can also fork the fleet - thereby creating your own fleet on [balenaCloud](https://www.balena.io/cloud/) running our software. **However, please do note before continuing that by forking the fleet you will lose the automated updates available from the [above recommended install method](#balena-hub-installation-preferred---includes-auto-updates) - unless you set up your own automations, the update process will be manual. Additionally, please note that balenaCloud is only free for the first 10 devices, after which you will have to pay for an account with "Microservices" capability (installing via the [balenaHub method above](#balena-hub-installation-preferred---includes-auto-updates) is free regardless of device quantity).**
+
+**Step 1** - To start with you will need to follow [steps 1 to 3 in the above recommended install method](#balena-hub-installation-preferred---includes-auto-updates). Once you have completed those steps, please return to step 2 below.
+
+**Step 2** - Before we move to the next step you will need to fork the fleet and then download the latest OpenFleet software for your hotspot, ready to flash onto your SD card. There are two ways you can do this. The first way is to click the `Deploy with balena` button below:
+
 [![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/NebraLtd/helium-rak)
+
+Alternatively, you can visit [the HELIUM-RAK balenaHub page](https://nebra.io/rak) and then click on `Fork this fleet` button which you can see in the below screenshot.
+
+![balenaHub page for Helium RAK](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/24118876816/original/zCffeV40Wq9Xr2erSSSr_u8B3r--purIOQ.png?1656517776)
+
+**Step 3** - Select your preferred network connection (Ethernet required on first boot). If you have balenaEtcher already installed you can select Flash, otherwise you can select Download from the drop-down box by clicking the arrow.
+
+![Add new device popup screen on balenaHub](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/24118876877/original/LjeNNTCDF7Vs5ngRDS1WZd_qj2Mv0zARMQ.png?1656517851)
+
+https://github.com/NebraLtd/helium-rak/blob/master/balena.yml#L27-L41
+data:
+  applicationEnvironmentVariables:
+    - VARIANT: COMP-RAKHM
+    - HELIUM_MINER_HEIGHT_URL: "https://api.helium.io/v1/blocks/height"
+  applicationConfigVariables:
+    - RESIN_HOST_CONFIG_dtparam: '"i2c_arm=on","spi=on","audio=on"'
+    - RESIN_HOST_CONFIG_dtoverlay: '"spi0-1cs","vc4-kms-v3d"'
+    - RESIN_HOST_CONFIG_gpu_mem: 16
+    - RESIN_HOST_CONFIG_avoid_warnings: 1
+    - RESIN_HOST_CONFIG_disable_overscan: 1
+    - RESIN_HOST_CONFIG_disable_splash: "1"
+    - RESIN_HOST_CONFIG_core_freq: 400
+    - RESIN_OVERRIDE_LOCK: 1
+  defaultDeviceType: raspberrypi4-64
+  supportedDeviceTypes:
+    - raspberrypi4-64
+version: 0.0.1
+
+#### Manual updates
+
+#### Setting up your own automations
 
 ## Branches
 
