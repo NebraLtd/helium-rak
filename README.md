@@ -117,6 +117,7 @@ version: 0.0.1
 #### Manual updates
 
 #### Setting up your own automations
+* [Crash0v3r1de Helium-RAK Nebra Update Tool](https://github.com/Crash0v3r1de/BalenaNebraUpdater) - .NET Core CLI update automation tool
 
 ## Branches
 
