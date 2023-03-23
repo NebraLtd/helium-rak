@@ -3,13 +3,13 @@ version: '2'
 services:
 
   gateway-config:
-    image: nebraltd/hm-config:258053d
+    image: nebraltd/hm-config:9b32cec
     depends_on:
       - dbus-session
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=2023.02.07.0-24
-      - FIRMWARE_SHORT_HASH=ce956c2
+      - FIRMWARE_VERSION=2023.02.07.0-25
+      - FIRMWARE_SHORT_HASH=4ae6a9d
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -28,7 +28,7 @@ services:
     stop_signal: SIGINT
 
   packet-forwarder:
-    image: nebraltd/hm-pktfwd:43b93fd
+    image: nebraltd/hm-pktfwd:2bb413e
     depends_on:
       - multiplexer
     restart: always
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=2023.02.07.0-24
-      - FIRMWARE_SHORT_HASH=ce956c2
+      - FIRMWARE_VERSION=2023.02.07.0-25
+      - FIRMWARE_SHORT_HASH=4ae6a9d
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -78,17 +78,17 @@ services:
     restart: on-failure
     environment:
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=2023.02.07.0-24
-      - FIRMWARE_SHORT_HASH=ce956c2
+      - FIRMWARE_VERSION=2023.02.07.0-25
+      - FIRMWARE_SHORT_HASH=4ae6a9d
 
   diagnostics:
-    image: nebraltd/hm-diag:9750268
+    image: nebraltd/hm-diag:b2a6844
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=2023.02.07.0-24
-      - FIRMWARE_SHORT_HASH=ce956c2
-      - DIAGNOSTICS_VERSION=9750268
+      - FIRMWARE_VERSION=2023.02.07.0-25
+      - FIRMWARE_SHORT_HASH=4ae6a9d
+      - DIAGNOSTICS_VERSION=b2a6844
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
       - pktfwdr:/var/pktfwd
@@ -120,8 +120,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=2023.02.07.0-24
-      - FIRMWARE_SHORT_HASH=ce956c2
+      - FIRMWARE_VERSION=2023.02.07.0-25
+      - FIRMWARE_SHORT_HASH=4ae6a9d
 
 volumes:
   miner-storage:
