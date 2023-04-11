@@ -3,14 +3,14 @@ version: '2'
 services:
 
   gateway-config:
-    image: nebraltd/hm-config:1f564d0
+    image: nebraltd/hm-config:0b666ba
     depends_on:
       - dbus-session
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -29,7 +29,7 @@ services:
     stop_signal: SIGINT
 
   packet-forwarder:
-    image: nebraltd/hm-pktfwd:c39fcf7
+    image: nebraltd/hm-pktfwd:ff950df
     depends_on:
       - multiplexer
     restart: always
@@ -41,8 +41,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -61,31 +61,31 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
 
   helium-miner:
-    image: nebraltd/hm-gatewayrs:arm64-b0e27e1
+    image: nebraltd/hm-gatewayrs:arm64-baf2544
     network_mode: host
     cap_add:
       - SYS_RAWIO
     privileged: true
     restart: always
     environment:
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
 
   diagnostics:
-    image: nebraltd/hm-diag:arm64-5bc4892
+    image: nebraltd/hm-diag:arm64-019ba8f
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
-      - DIAGNOSTICS_VERSION=5bc4892
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
+      - DIAGNOSTICS_VERSION=019ba8f
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
       - pktfwdr:/var/pktfwd
@@ -112,8 +112,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.0-0
-      - FIRMWARE_SHORT_HASH=64b77f4
+      - FIRMWARE_VERSION=v1.0.0-1
+      - FIRMWARE_SHORT_HASH=f1574db
 
 volumes:
   miner-storage:
