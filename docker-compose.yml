@@ -9,8 +9,8 @@ services:
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -34,15 +34,12 @@ services:
       - multiplexer
     restart: always
     privileged: true
-    network_mode: host
-    extra_hosts:
-        - "multiplexer:127.0.0.1"
     volumes:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -52,39 +49,45 @@ services:
     restart: always
     depends_on:
       - helium-miner
-    network_mode: host
-    extra_hosts:
-        - "helium-miner:127.0.0.1"
+    expose:
+      - "1681"
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
 
   helium-miner:
-    image: nebraltd/hm-gatewayrs:arm64-baf2544
-    network_mode: host
+    image: nebraltd/hm-gatewayrs:arm64-1554b3a
+    depends_on:
+      - diagnostics
+    expose:
+      - "1680"
+      - "4467"
+    ports:
+      - "44158:44158/tcp"
     cap_add:
       - SYS_RAWIO
     privileged: true
     restart: always
     environment:
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
+      - nebra:/var/nebra
 
   diagnostics:
     image: nebraltd/hm-diag:arm64-019ba8f
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
       - DIAGNOSTICS_VERSION=019ba8f
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
@@ -92,9 +95,8 @@ services:
       - miner-storage:/var/data
       - watchdog-log:/var/watchdog
       - nebra:/var/nebra
-    network_mode: host
-    extra_hosts:
-        - "helium-miner:127.0.0.1"
+    ports:
+      - "80:80"
     cap_add:
       - SYS_RAWIO
     restart: always
@@ -112,8 +114,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.0-1
-      - FIRMWARE_SHORT_HASH=f1574db
+      - FIRMWARE_VERSION=v1.0.0-2
+      - FIRMWARE_SHORT_HASH=538fbc2
 
 volumes:
   miner-storage:
@@ -121,13 +123,3 @@ volumes:
   dbus:
   nebra:
   watchdog-log:
-
-# balena keeps on changing the subnet, making it impossible
-# to use extra_hosts for naming host IPs
-networks:
-  default:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/16
