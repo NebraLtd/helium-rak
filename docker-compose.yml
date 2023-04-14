@@ -3,14 +3,14 @@ version: '2'
 services:
 
   gateway-config:
-    image: nebraltd/hm-config:6d63852
+    image: nebraltd/hm-config:5d3ad7a
     depends_on:
       - dbus-session
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -38,8 +38,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -57,8 +57,8 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
 
   helium-miner:
     image: nebraltd/hm-gatewayrs:arm64-fc3a1b0
@@ -74,8 +74,8 @@ services:
     privileged: true
     restart: always
     environment:
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
@@ -86,8 +86,8 @@ services:
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
       - DIAGNOSTICS_VERSION=0739ab9
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
@@ -114,8 +114,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=cad107c
+      - FIRMWARE_VERSION=v1.0.2-1
+      - FIRMWARE_SHORT_HASH=ab5af67
 
 volumes:
   miner-storage:
