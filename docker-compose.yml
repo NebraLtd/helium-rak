@@ -10,7 +10,7 @@ services:
       - diagnostics
     environment:
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -39,7 +39,7 @@ services:
       - nebra:/var/nebra
     environment:
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -58,7 +58,7 @@ services:
       - nebra:/var/nebra
     environment:
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
 
   helium-miner:
     image: nebraltd/hm-gatewayrs:arm64-fc3a1b0
@@ -75,7 +75,7 @@ services:
     restart: always
     environment:
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
@@ -87,7 +87,7 @@ services:
       - dbus-session
     environment:
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
       - DIAGNOSTICS_VERSION=0739ab9
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
@@ -115,7 +115,7 @@ services:
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
       - FIRMWARE_VERSION=v1.0.2
-      - FIRMWARE_SHORT_HASH=78e0f4f
+      - FIRMWARE_SHORT_HASH=cad107c
 
 volumes:
   miner-storage:
