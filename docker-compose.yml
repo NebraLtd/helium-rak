@@ -9,8 +9,8 @@ services:
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -54,8 +54,8 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
     expose:
       - "1681"
 
@@ -73,21 +73,21 @@ services:
     ports:
       - "44158:44158/tcp"
     environment:
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
       - nebra:/var/nebra
 
   diagnostics:
-    image: nebraltd/hm-diag:arm64-2e2674a
+    image: nebraltd/hm-diag:arm64-f67a928
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
-      - DIAGNOSTICS_VERSION=2e2674a
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
+      - DIAGNOSTICS_VERSION=f67a928
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
       - pktfwdr:/var/pktfwd
@@ -114,8 +114,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.2-17
-      - FIRMWARE_SHORT_HASH=2d2412b
+      - FIRMWARE_VERSION=v1.0.2-18
+      - FIRMWARE_SHORT_HASH=53fbcd4
 
 volumes:
   miner-storage:
