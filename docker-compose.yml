@@ -3,14 +3,14 @@ version: '2'
 services:
 
   gateway-config:
-    image: nebraltd/hm-config:arm64-69abf28
+    image: nebraltd/hm-config:arm64-4ea0854
     depends_on:
       - dbus-session
       - helium-miner
       - diagnostics
     environment:
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -38,7 +38,7 @@ services:
       - nebra:/var/nebra
     environment:
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -55,7 +55,7 @@ services:
       - nebra:/var/nebra
     environment:
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
     expose:
       - "1681"
 
@@ -74,7 +74,7 @@ services:
       - "44158:44158/tcp"
     environment:
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
@@ -86,7 +86,7 @@ services:
       - dbus-session
     environment:
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
       - DIAGNOSTICS_VERSION=f67a928
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     volumes:
@@ -115,7 +115,7 @@ services:
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
       - FIRMWARE_VERSION=v1.0.2-18
-      - FIRMWARE_SHORT_HASH=53fbcd4
+      - FIRMWARE_SHORT_HASH=b9e84b1
 
 volumes:
   miner-storage:
