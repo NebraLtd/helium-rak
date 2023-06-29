@@ -1,4 +1,4 @@
-![Helium RAK Firmware Repo Header](https://cdn.shopify.com/s/files/1/0071/2281/3001/files/Nebra-Firmware-Github-Header-RAK-MNTD_2x_3ce74540-7fd8-4629-9343-834985d70134.png?v=1674084830)
+![Helium RAK Firmware Repo Header](https://cdn.shopify.com/s/files/1/0071/2281/3001/files/Nebra-Firmware-Github-Header-RAK-MNTD.png?v=1688030309)
 
 # Helium RAK - Open Source Firmware for RAKwireless / MNTD Helium Miners
 
