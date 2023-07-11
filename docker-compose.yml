@@ -3,14 +3,14 @@ version: '2'
 services:
 
   gateway-config:
-    image: nebraltd/hm-config:arm64-eadeba8
+    image: nebraltd/hm-config:arm64-36b18ee
     depends_on:
       - dbus-session
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -28,7 +28,7 @@ services:
     stop_signal: SIGINT
 
   packet-forwarder:
-    image: nebraltd/hm-pktfwd:c206d30
+    image: nebraltd/hm-pktfwd:fbe8bb9
     depends_on:
       - multiplexer
     restart: always
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -54,13 +54,13 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
     expose:
       - "1681"
 
   helium-miner:
-    image: nebraltd/hm-gatewayrs:arm64-f8f5592
+    image: nebraltd/hm-gatewayrs:arm64-6b5c3cc
     depends_on:
       - diagnostics
     cap_add:
@@ -73,25 +73,25 @@ services:
     ports:
       - "44158:44158/tcp"
     environment:
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
       - nebra:/var/nebra
 
   diagnostics:
-    image: nebraltd/hm-diag:arm64-0bcc5c1
+    image: nebraltd/hm-diag:arm64-592086a
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
-      - DIAGNOSTICS_VERSION=0bcc5c1
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
+      - DIAGNOSTICS_VERSION=592086a
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-      - GATEWAYRS_VERSION=f8f5592
-      - CONFIG_VERSION=eadeba8
-      - PKTFWD_VERSION=c206d30
+      - GATEWAYRS_VERSION=6b5c3cc
+      - CONFIG_VERSION=36b18ee
+      - PKTFWD_VERSION=fbe8bb9
       - MULTIPLEXER_VERSION=a1fc09b
     volumes:
       - pktfwdr:/var/pktfwd
@@ -118,8 +118,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.2-49
-      - FIRMWARE_SHORT_HASH=b74d148
+      - FIRMWARE_VERSION=v1.0.2-50
+      - FIRMWARE_SHORT_HASH=af8f6ee
 
 volumes:
   miner-storage:
