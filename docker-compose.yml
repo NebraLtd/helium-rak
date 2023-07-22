@@ -9,8 +9,8 @@ services:
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -54,8 +54,8 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
     expose:
       - "1681"
 
@@ -70,24 +70,22 @@ services:
     expose:
       - "1680"
       - "4467"
-    ports:
-      - "44158:44158/tcp"
     environment:
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
       - nebra:/var/nebra
 
   diagnostics:
-    image: nebraltd/hm-diag:arm64-9aa940f
+    image: nebraltd/hm-diag:arm64-65026a7
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
-      - DIAGNOSTICS_VERSION=9aa940f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
+      - DIAGNOSTICS_VERSION=65026a7
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - GATEWAYRS_VERSION=6b5c3cc
       - CONFIG_VERSION=36b18ee
@@ -118,8 +116,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.2-51
-      - FIRMWARE_SHORT_HASH=613b64f
+      - FIRMWARE_VERSION=v1.0.2-52
+      - FIRMWARE_SHORT_HASH=6d25aeb
 
 volumes:
   miner-storage:
