@@ -9,8 +9,8 @@ services:
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -54,13 +54,13 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
     expose:
       - "1681"
 
   helium-miner:
-    image: nebraltd/hm-gatewayrs:arm64-4beaf8f
+    image: nebraltd/hm-gatewayrs:arm64-bdafaf4
     depends_on:
       - diagnostics
     cap_add:
@@ -71,8 +71,8 @@ services:
       - "1680"
       - "4467"
     environment:
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
@@ -83,11 +83,11 @@ services:
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
       - DIAGNOSTICS_VERSION=95860ee
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-      - GATEWAYRS_VERSION=4beaf8f
+      - GATEWAYRS_VERSION=bdafaf4
       - CONFIG_VERSION=8e93fcc
       - PKTFWD_VERSION=d9a70aa
       - MULTIPLEXER_VERSION=a1fc09b
@@ -116,8 +116,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.0.2-53
-      - FIRMWARE_SHORT_HASH=5bba11d
+      - FIRMWARE_VERSION=v1.1.0
+      - FIRMWARE_SHORT_HASH=c557d09
 
 volumes:
   miner-storage:
