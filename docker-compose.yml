@@ -9,8 +9,8 @@ services:
       - helium-miner
       - diagnostics
     environment:
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
     restart: on-failure
@@ -37,8 +37,8 @@ services:
       - pktfwdr:/var/pktfwd
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
     labels:
       io.balena.features.sysfs: 1
       io.balena.features.procfs: 1
@@ -54,13 +54,13 @@ services:
     volumes:
       - nebra:/var/nebra
     environment:
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
     expose:
       - "1681"
 
   helium-miner:
-    image: nebraltd/hm-gatewayrs:arm64-3497968
+    image: nebraltd/hm-gatewayrs:arm64-5428419
     depends_on:
       - diagnostics
     cap_add:
@@ -71,23 +71,23 @@ services:
       - "1680"
       - "4467"
     environment:
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
     volumes:
       - pktfwdr:/var/pktfwd
       - miner-storage:/var/data
       - nebra:/var/nebra
 
   diagnostics:
-    image: nebraltd/hm-diag:arm64-fd8bf68
+    image: nebraltd/hm-diag:arm64-6d56740
     depends_on:
       - dbus-session
     environment:
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
-      - DIAGNOSTICS_VERSION=fd8bf68
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
+      - DIAGNOSTICS_VERSION=6d56740
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-      - GATEWAYRS_VERSION=3497968
+      - GATEWAYRS_VERSION=5428419
       - CONFIG_VERSION=a198b83
       - PKTFWD_VERSION=5c3c90a
       - MULTIPLEXER_VERSION=a1fc09b
@@ -116,8 +116,8 @@ services:
       - dbus:/session/dbus
     environment:
       - DBUS_ADDRESS=unix:path=/session/dbus/session_bus_socket
-      - FIRMWARE_VERSION=v1.2.1-1
-      - FIRMWARE_SHORT_HASH=9c4da34
+      - FIRMWARE_VERSION=v1.3.0
+      - FIRMWARE_SHORT_HASH=07173bf
 
 volumes:
   miner-storage:
